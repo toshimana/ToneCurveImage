@@ -16,5 +16,5 @@ IF ( Boost_FOUND )
   LINK_DIRECTORIES( ${Boost_LIBRARY_DIR} )
 ENDIF()
 
-ADD_EXECUTABLE( ToneCurveImage main.cpp )
+ADD_EXECUTABLE( ToneCurveImage main.cpp parseFile.cpp )
 TARGET_LINK_LIBRARIES( ToneCurveImage ${OpenCV_LIBS} )
