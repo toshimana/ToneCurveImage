@@ -25,7 +25,7 @@ namespace
 		parseFileImpl()
 			: parseFileImpl::base_type( result )
 		{
-			result = qi::repeat(256)[ qi::ushort_ >> qi::eol ];
+			result %= qi::repeat(256)[ qi::ushort_ >> *qi::eol ];
 		}
 	};
 };
@@ -54,7 +54,7 @@ parseFile::read( const std::string& path, parseFile::Table& table )
 	auto it = str.begin();
 	std::vector<unsigned short> table_raw;
 
-	bool parseRet = qi::parse( it, str.end(), parseFI, table_raw );
+	bool parseRet = qi::phrase_parse( it, str.end(), parseFI, boost::spirit::ascii::space, table_raw );
 	bool ret = parseRet && (it == str.end());
 	if ( ret ) {
 		std::transform( table_raw.begin(), table_raw.end(), table.begin(), []( unsigned short s ){return static_cast<unsigned char>(s); } );
